@@ -58,8 +58,7 @@ function wpkuaiyun_setting_page() {
                     <input type="text" name="bucketName" value="<?php echo esc_attr($wpkuaiyun_options['bucketName']); ?>" size="50"
                            placeholder="BucketName"/>
 
-                    <p>请先访问 <a href="https://oss.console.aliyun.com/overview" target="_blank">阿里云OSS控制台</a> 创建
-                        <code>Bucket</code> ，再填写以上内容。示例: itbulu</p>
+                    <p>创建<code>Bucket</code> ，再填写以上内容。示例: itbulu</p>
                 </td>
             </tr>
             <tr>
