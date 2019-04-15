@@ -11,11 +11,11 @@ define('WPKUAIYUN_BASEFOLDER', plugin_basename(dirname(__FILE__)));
 // 初始化选项
 function wpkuaiyun_set_options() {
 	$options = array(
-		'bucketName' => "demobkt",  // 用户的空间名称
-		'accessKey' => "I1I7CLU4708LI8XQ0ODL",  // 用户秘钥对：开通快云存储时的Access_Key，可在会员中心获取
-		'secretKey' => "N41hrYy14gI03RpnZijfezGl/VUtZP3b77vjF6nn",// 用户秘钥对：开通快云存储时的Secret_Key，可在会员中心获取
-        'resource' => "VG3OQ81wtrNGANeuq8IdwWxGFK0xdA3X", // API调用来源，可在会员中心点击获取
-        'voucher' => "dcb99d196dd2418ec1fdfa7269ee4b81", // 用户通过accesskey和secretkey获取的，可在会员中心点击，以邮件形式获取
+		'bucketName' => "",  // 用户的空间名称
+		'accessKey' => "",  // 用户秘钥对：开通快云存储时的Access_Key，可在会员中心获取
+		'secretKey' => "",// 用户秘钥对：开通快云存储时的Secret_Key，可在会员中心获取
+        'resource' => "", // API调用来源，可在会员中心点击获取
+        'voucher' => "", // 用户通过accesskey和secretkey获取的，可在会员中心点击，以邮件形式获取
 		'no_local_file' => "false",  # 不在本地保留备份
         'token' => array(
             'value' => "",  // 用户操作秘钥，是用户调用api接口时必须用到的的秘钥；可以通过API获取
