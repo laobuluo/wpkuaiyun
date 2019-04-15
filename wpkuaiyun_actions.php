@@ -156,5 +156,5 @@ function wpkuaiyun_add_setting_page() {
 	if (!function_exists('wpkuaiyun_setting_page')) {
 		require_once 'wpkuaiyun_setting_page.php';
 	}
-	add_menu_page('WPKUAIYUN设置', 'WPKUAIYUN设置', 'manage_options', __FILE__, 'wpkuaiyuan_setting_page');
+	add_menu_page('WPKUAIYUN设置', 'WPKUAIYUN设置', 'manage_options', __FILE__, 'wpkuaiyun_setting_page');
 }
