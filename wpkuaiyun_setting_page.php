@@ -36,7 +36,7 @@ function wpkuaiyun_setting_page() {
             update_option('upload_url_path', esc_url_raw(trim(trim(stripslashes($_POST['upload_url_path']))), '/'));
 
 ?>
-    <div class="updated"><p><strong>设置已保存！</strong></p></div>
+    <div class="updated" style="font-size: 25px;color: red; margin-top: 20px;font-weight: bold;"><p><strong>设置已保存！</strong></p></div>
 
 <?php
 
@@ -45,7 +45,28 @@ function wpkuaiyun_setting_page() {
 
 ?>
 
+<style type="text/css">
+   table {
+    border-collapse: collapse;
+}
 
+table, td, th {border: 1px solid #cccccc;padding:5px;}
+.buttoncss {background-color: #4CAF50; 
+    border: none;cursor:pointer;
+    color: white;
+    padding: 15px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;border-radius: 5px;
+    font-size: 12px;font-weight: bold;
+}
+.buttoncss:hover {
+    background-color: #008CBA;
+    color: white;
+}
+input{border: 1px solid #ccc;padding: 5px 0px;border-radius: 3px;padding-left:5px;}
+
+</style>
 <div class="wrap" style="margin: 10px;">
     <h2>WordPress + 景安快云对象存储设置</h2>
     <hr/>    
@@ -56,9 +77,9 @@ function wpkuaiyun_setting_page() {
     <form name="form1" method="post" action="<?php echo wp_nonce_url('./admin.php?page=' . WPKUAIYUN_BASEFOLDER . '/wpkuaiyun_actions.php'); ?>">
         <table class="form-table">
             <tr>
-                <th>
-                    <legend>空间名称</legend>
-                </th>
+                 <td style="text-align:right;">
+                    <b>空间名称：</b>
+                </td>
                 <td>
                     <input type="text" name="bucketName" value="<?php echo esc_attr($wpkuaiyun_options['bucketName']); ?>" size="50"
                            placeholder="BucketName"/>
@@ -68,9 +89,9 @@ function wpkuaiyun_setting_page() {
                 </td>
             </tr>
             <tr>
-                <th>
-                    <legend>Resource 来源参数</legend>
-                </th>
+                <td style="text-align:right;">
+                    <b>Resource 来源参数：</b>
+                </td>
                 <td>
                     <input type="text" name="resource" value="<?php echo esc_attr($wpkuaiyun_options['resource']); ?>" size="50"
                            placeholder="resource"/>
@@ -78,9 +99,9 @@ function wpkuaiyun_setting_page() {
                 </td>
             </tr>
             <tr>
-                <th>
-                    <legend>Voucher 设置（获取凭证）</legend>
-                </th>
+                 <td style="text-align:right;">
+                    <b>Voucher 设置（获取凭证）：</b>
+                </td>
                 <td>
                     <input type="text" name="voucher" value="<?php echo esc_attr($wpkuaiyun_options['voucher']); ?>" size="50"
                            placeholder="voucher"/>
@@ -89,27 +110,27 @@ function wpkuaiyun_setting_page() {
                 </td>
             </tr>
             <tr>
-                <th>
-                    <legend>Access_key</legend>
-                </th>
+                 <td style="text-align:right;">
+                    <b>Access_key：</b>
+                </td>
                 <td>
                     <input type="text" name="accessKey" value="<?php echo esc_attr($wpkuaiyun_options['accessKey']); ?>" size="50" placeholder="accessKey"/>
                     <p>用户秘钥对：开通快云存储时的Access_Key，可在会员中心->对象存储->获取Key值，获取。</p>
                 </td>
             </tr>
             <tr>
-                <th>
-                    <legend>Secret_key</legend>
-                </th>
+                 <td style="text-align:right;">
+                    <b>Secret_key：</b>
+                </td>
                 <td>
                     <input type="text" name="secretKey" value="<?php echo esc_attr($wpkuaiyun_options['secretKey']); ?>" size="50" placeholder="secretKey"/>
                     <p>用户秘钥对：开通快云存储时的Secret_Key，可在会员中心->对象存储->获取Key值，获取</p>
                 </td>
             </tr>
             <tr>
-                <th>
-                    <legend>不在本地保留备份</legend>
-                </th>
+                 <td style="text-align:right;">
+                    <b>不在本地保留备份：</b>
+                </td>
                 <td>
                     <input type="checkbox"
                            name="no_local_file" <?php if (esc_attr($wpkuaiyun_options['no_local_file']) == 'true') {
@@ -121,21 +142,9 @@ function wpkuaiyun_setting_page() {
                 </td>
             </tr>
             <tr>
-                <th>
-                    <legend>本地文件夹</legend>
-                </th>
-                <td>
-                    <input type="text" name="upload_path" value="<?php echo esc_attr(get_option('upload_path')); ?>" size="50"
-                           placeholder="请输入上传文件夹"/>
-
-                     <p>1. 附件在服务器上相对于WordPress根目录的存储位置，例如： <code>wp-content/uploads</code> （注意不要以“/”开头和结尾）。</p>
-                    <p>2. 示范：<code>wp-content/uploads</code></p>
+                 <td style="text-align:right;">
+                    <b>URL前缀/本地文件夹：</b>
                 </td>
-            </tr>
-            <tr>
-                <th>
-                    <legend>URL前缀</legend>
-                </th>
                 <td>
                     <input type="text" name="upload_url_path" value="<?php echo esc_url(get_option('upload_url_path')); ?>" size="50"
                            placeholder="请输入URL前缀"/>
@@ -147,10 +156,23 @@ function wpkuaiyun_setting_page() {
                 </td>
             </tr>
             <tr>
+                <td style="text-align:right;">
+                    <b>本地文件夹：</b>
+                </td>
+                <td>
+                    <input type="text" name="upload_path" value="<?php echo esc_attr(get_option('upload_path')); ?>" size="50"
+                           placeholder="请输入上传文件夹"/>
+
+                     <p>1. 附件在服务器上相对于WordPress根目录的存储位置，例如： <code>wp-content/uploads</code> （注意不要以“/”开头和结尾）。</p>
+                    <p>2. 示范：<code>wp-content/uploads</code></p>
+                </td>
+            </tr>
+            
+            <tr>
                 <th>
                    
                 </th>
-                <td><input type="submit" name="submit" value="保存设置"/></td>
+                <td><input type="submit" name="submit" value="保存设置" class="buttoncss"/></td>
             </tr>
         </table>
         <input type="hidden" name="type" value="info_set">
