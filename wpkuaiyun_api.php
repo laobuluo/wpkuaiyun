@@ -1,12 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: zdl25
- * Date: 2019/1/15
- * Time: 16:42
+ * KuaiYun Api 接口方法
  */
 
-class URLRequest
+class wpKuaiyunURLRequest
 {
     public $url;
     public $headers;
@@ -27,7 +24,7 @@ class URLRequest
      * @param bool $isPost
      * @param string $aBody
      */
-    public function URLRequest($aUrl, array $aHeaders, array $aParams, $aFormat = "json", $isPost = True, $aBody = "+")
+    public function __construct($aUrl, array $aHeaders, array $aParams, $aFormat = "json", $isPost = True, $aBody = "+")
     {
         $this->url = $aUrl;
         $this->headers = $aHeaders;
@@ -81,7 +78,7 @@ function wpkuaiyun_get_token($voucher, $accessKey, $secretKey, $resource){
     $data["resource"]= $resource;
     $body = json_encode($data);
     $headers = array("Content-Type: application/json; charset=utf-8");
-    $request = new URLRequest($url, $headers, $query, "json", true, $body);
+    $request = new wpKuaiyunURLRequest($url, $headers, $query, "json", true, $body);
     $response = $request->exec();
     $msg = json_decode($response,true)["message"];
     $arr = explode(":",$msg);
@@ -126,7 +123,7 @@ function wpkuaiyun_send_file($localFile, $fileName){
         "resource:{$opt['resource']}",
         "length:{$len}");
     $body = $data["input"];
-    $request = new URLRequest($url, $headers, $data, "json", true, $body);
+    $request = new wpKuaiyunURLRequest($url, $headers, $data, "json", true, $body);
     $response = $request->exec();
     $msg = json_decode($response,true)["message"];
     return $msg;
@@ -149,7 +146,7 @@ function wpkuaiyun_del_file($fileName){
     $data["resource"] = $opt['resource'];
     $body = json_encode($data);
     $headers = array("Content-Type: application/json; charset=utf-8");
-    $request = new URLRequest($url, $headers, $query, "json", true, $body);
+    $request = new wpKuaiyunURLRequest($url, $headers, $query, "json", true, $body);
     $response = $request->exec();
     $result	= json_decode($response, true)["message"];
     return $result;
