@@ -11,7 +11,7 @@ function wpkuaiyun_setting_page() {
         wp_die('Insufficient privileges!');
     }
 
-	$wpkuaiyun_options = get_option('wpkuaiyun_options', True);
+	$wpkuaiyun_options = get_option('wpkuaiyun_options');
 
     if (isset($_GET['_wpnonce']) && wp_verify_nonce($_GET['_wpnonce']) && !empty($_POST)) {
         if($_POST['type'] == 'info_set') {
@@ -19,7 +19,7 @@ function wpkuaiyun_setting_page() {
             foreach ($wpkuaiyun_options as $k => $v) {
                 if ($k =='no_local_file') {
                     $wpkuaiyun_options[$k] = (isset($_POST[$k])) ? 'true' : 'false';
-                } else {
+                } else if ($k != 'token') {
                     $wpkuaiyun_options[$k] = (isset($_POST[$k])) ? sanitize_text_field(trim(stripslashes($_POST[$k]))) : '';
                 }
             }

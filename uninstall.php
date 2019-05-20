@@ -11,6 +11,7 @@ if(!defined('WP_UNINSTALL_PLUGIN')){
 }
 
 // 从 options 表删除选项
-delete_option( 'wposs_options' );
-
+delete_option( 'wpkuaiyun_options' );
+update_option('upload_url_path', '');
+update_option('upload_path', '');
 // 删除其他额外的选项和自定义表
