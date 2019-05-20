@@ -12,6 +12,7 @@ class wpKuaiyunURLRequest
     public $expectedFormat;
     public $method;
     public $data;
+    public $timeout;
 
 
     /**
@@ -23,8 +24,9 @@ class wpKuaiyunURLRequest
      * @param string $aFormat
      * @param bool $isPost
      * @param string $aBody
+     * @param string $timeout (s)
      */
-    public function __construct($aUrl, array $aHeaders, array $aParams, $aFormat = "json", $isPost = True, $aBody = "+")
+    public function __construct($aUrl, array $aHeaders, array $aParams, $aFormat = "json", $isPost = True, $aBody = "+", $timeout = '3600')
     {
         $this->url = $aUrl;
         $this->headers = $aHeaders;
@@ -32,38 +34,40 @@ class wpKuaiyunURLRequest
         $this->expectedFormat = $aFormat;
         $this->method = ($isPost ? "POST" : "GET");
         $this->body = $aBody;
+        $this->timeout = $timeout;
 
     }
-    //
-    public function exec()
-    {
 
-        $url = $this->url;
 
-        $request = curl_init();
-        curl_setopt($request, CURLOPT_URL, $url);
-        curl_setopt($request, CURLOPT_HEADER, 1);
-        curl_setopt($request, CURLOPT_HTTPHEADER, $this->headers);
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
-        if($this->method == "POST")
-        {
-            curl_setopt($request, CURLOPT_POST, 1);
-            curl_setopt($request, CURLOPT_POSTFIELDS, $this->body);
-        }
+	public function exec()
+	{
 
-        $response = curl_exec($request);
-        $httpCode = curl_getinfo($request, CURLINFO_HTTP_CODE);
-        if ($httpCode == '200') {
-            $headerSize = curl_getinfo($request, CURLINFO_HEADER_SIZE);
-            $header = substr($response, 0, $headerSize);
-            $body = substr($response, $headerSize);
-            curl_close($request);
-            return $body;
-        }else{
-            curl_close($request);
-            return $response;
-        }
-    }
+		$url = $this->url;
+
+		$args = array(
+			'body' => $this->body,
+			'timeout' => $this->timeout,
+			'redirection' => '5',
+			'httpversion' => '1.0',
+			'blocking' => true,
+			'headers' => $this->headers,
+		);
+
+		if($this->method == "POST")
+		{
+			$response = wp_remote_post( $url, $args );
+		} else {
+			$response = wp_remote_get( $url, $args );
+		}
+
+		$httpCode = wp_remote_retrieve_response_code( $response );
+		if ($httpCode == '200') {
+			$body = wp_remote_retrieve_body( $response );
+			return $body;
+		}else{
+			return $response;
+		}
+	}
 }
 
 
@@ -77,8 +81,10 @@ function wpkuaiyun_get_token($voucher, $accessKey, $secretKey, $resource){
     $data["secretKey"]= $secretKey;
     $data["resource"]= $resource;
     $body = json_encode($data);
-    $headers = array("Content-Type: application/json; charset=utf-8");
-    $request = new wpKuaiyunURLRequest($url, $headers, $query, "json", true, $body);
+    $headers = array(
+	    'Content-Type' => 'application/json; charset=utf-8',
+    );;
+    $request = new wpKuaiyunURLRequest($url, $headers, $query, "json", true, $body, '5');
     $response = $request->exec();
     $msg = json_decode($response,true)["message"];
     $arr = explode(":",$msg);
@@ -116,12 +122,14 @@ function wpkuaiyun_send_file($localFile, $fileName){
     $file = base64_encode($fileName);
     $len = strlen(file_get_contents($localFile));
 
-    $headers = array("Content-Type: application/json;charset=utf-8",
-        "token:{$token}",
-        "fileName:{$file}",
-        "bucketName:{$opt['bucketName']}",
-        "resource:{$opt['resource']}",
-        "length:{$len}");
+    $headers = array(
+    	'Content-Type' => 'application/json;charset=utf-8',
+        'token' => "{$token}",
+        'fileName' => "{$file}",
+        'bucketName' => "{$opt['bucketName']}",
+        'resource' => "{$opt['resource']}",
+        'length' => "{$len}",
+    );
     $body = $data["input"];
     $request = new wpKuaiyunURLRequest($url, $headers, $data, "json", true, $body);
     $response = $request->exec();
@@ -145,7 +153,9 @@ function wpkuaiyun_del_file($fileName){
     $data["bucketName"] = $opt['bucketName'];
     $data["resource"] = $opt['resource'];
     $body = json_encode($data);
-    $headers = array("Content-Type: application/json; charset=utf-8");
+    $headers = array(
+		'Content-Type' => 'application/json; charset=utf-8',
+	);
     $request = new wpKuaiyunURLRequest($url, $headers, $query, "json", true, $body);
     $response = $request->exec();
     $result	= json_decode($response, true)["message"];
