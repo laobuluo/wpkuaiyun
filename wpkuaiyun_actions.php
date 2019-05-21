@@ -16,15 +16,29 @@ function wpkuaiyun_set_options() {
 		'secretKey' => "",// 用户秘钥对：开通快云存储时的Secret_Key，可在会员中心获取
         'resource' => "", // API调用来源，可在会员中心点击获取
         'voucher' => "", // 用户通过accesskey和secretkey获取的，可在会员中心点击，以邮件形式获取
+		'upload_url_path' => '',
 		'no_local_file' => "false",  # 不在本地保留备份
         'token' => array(
             'value' => "",  // 用户操作秘钥，是用户调用api接口时必须用到的的秘钥；可以通过API获取
             'express' => '',  // 过期时间
         ),  // 用户操作秘钥，是用户调用api接口时必须用到的的秘钥；可以通过API获取
 	);
-	if(!get_option('wpkuaiyun_options', False)){
+	$wpkuaiyun_options = get_option('wpkuaiyun_options', False);
+	if(!$wpkuaiyun_options){
 		add_option('wpkuaiyun_options', $options, '', 'yes');
+	} else {
+		if ($wpkuaiyun_options['upload_url_path']) {
+			update_option('upload_url_path', $wpkuaiyun_options['upload_url_path']);
+		}
 	};
+}
+
+function wpkuaiyun_restore_options() {
+	$upload_url_path = get_option('upload_url_path');
+	$wpkuaiyun_options = get_option('wpkuaiyun_options');
+	$wpkuaiyun_options['upload_url_path']  = $upload_url_path;
+	update_option('wpkuaiyun_options', $wpkuaiyun_options);
+	update_option('upload_url_path', '');
 }
 
 
