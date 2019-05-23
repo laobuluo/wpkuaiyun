@@ -71,7 +71,7 @@ input{border: 1px solid #ccc;padding: 5px 0px;border-radius: 3px;padding-left:5p
     <h2>WordPress + 景安快云对象存储设置</h2>
     <hr/>    
         <p>这个插件可实现WordPress上传静态资源（图片、附件）同步至景安快云对象存储中，实现静态资源分离，这样提高服务器的访问速度。</p>
-        <p>插件官方网站： <a href="https://www.laobuluo.com" target="_blank">老部落</a> / <a href="https://www.laobuluo.com/2250.html" target="_blank">WPKuaiYun插件发布页面</a> / 站长交流QQ群： <a href="https://jq.qq.com/?_wv=1027&k=5gBE7Pt" target="_blank"> <font color="red">594467847</font></a>（网站运营及互联网创业交流）/ <a href="https://www.laobuluo.com/kuaiyun/" target="_blank">景安快云服务器云产品优惠</a></p>
+        <p>插件官方网站： <a href="https://www.laobuluo.com" target="_blank">老部落</a> / <a href="https://www.laobuluo.com/2341.html" target="_blank">WPKuaiYun插件发布页面</a> / 站长交流QQ群： <a href="https://jq.qq.com/?_wv=1027&k=5gBE7Pt" target="_blank"> <font color="red">594467847</font></a>（网站运营及互联网创业交流）/ <a href="https://www.laobuluo.com/kuaiyun/" target="_blank">景安快云服务器云产品优惠</a></p>
                  
       <hr/>
     <form name="form1" method="post" action="<?php echo wp_nonce_url('./admin.php?page=' . WPKUAIYUN_BASEFOLDER . '/wpkuaiyun_actions.php'); ?>">
@@ -144,6 +144,7 @@ input{border: 1px solid #ccc;padding: 5px 0px;border-radius: 3px;padding-left:5p
             <tr>
                  <td style="text-align:right;">
                     <b>URL前缀/本地文件夹：</b>
+
                 </td>
                 <td>
                     <input type="text" name="upload_url_path" value="<?php echo esc_url(get_option('upload_url_path')); ?>" size="50"
@@ -152,7 +153,8 @@ input{border: 1px solid #ccc;padding: 5px 0px;border-radius: 3px;padding-left:5p
                     <p><b>注意：</b></p>
                     <p>1. 请到对象存储中绑定该域名。（景安对象存储必须绑定域名且需要白名单设置才可以）</p>
                     <p>2. 对象存储中的存放路径（即“文件夹”）与上述 <code>本地文件夹</code> 中定义的路径是相同的（出于方便切换考虑）。</p>
-                    <p>3. 示范：http://zzidc.laobuluo.com(我们绑定对象存储的域名)/wp-content/uploads（与上面本地文件夹一致的文件夹路径） 。 <br>例子： <code>http://zzidc.laobuluo.com/wp-content/uploads</code> </p>
+                    <p>3. 示范：http://zzidc.laobuluo.com(我们绑定对象存储的域名)/wp-content/uploads（与上面本地文件夹一致的文件夹路径） 。 <br> <font color="red"><b>注意！注意！注意：</b></font> 一定要用后面的本地文件夹尾巴，比如 <font color="red"><b>wp-content/uploads</b></font> </p>
+                    <p><font color="red"><b>举个例子：</b></font> <font color="blue"><b>http://zzidc.laobuluo.com/wp-content/uploads</b></font></p>
                 </td>
             </tr>
             <tr>
@@ -165,6 +167,7 @@ input{border: 1px solid #ccc;padding: 5px 0px;border-radius: 3px;padding-left:5p
 
                      <p>1. 附件在服务器上相对于WordPress根目录的存储位置，例如： <code>wp-content/uploads</code> （注意不要以“/”开头和结尾）。</p>
                     <p>2. 示范：<code>wp-content/uploads</code></p>
+                    <br> <font color="red"><b>注意！注意！注意：</b></font> 这里的本地文件夹默认输入 <font color="red"><b>wp-content/uploads</b></font> ，需要和上面尾巴一致。</p>
                 </td>
             </tr>
             

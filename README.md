@@ -28,7 +28,7 @@ WordPress景安快云对象存储插件（WPKuaiYun），基于景安快云对�
 
     1、WPKuaiYun插件：https://github.com/laobuluo/wpkuaiyun
 
-    2、WP平台下载：
+    2、WP平台下载：WORDPRESS后台搜索 wpkuaiyun
 
 2、安装插件
 
@@ -47,7 +47,7 @@ WordPress景安快云对象存储插件（WPKuaiYun），基于景安快云对�
 
 **WPKuaiYun插件更新**
 
-2019.4.20 - WPKuaiYun 1.1 版本更新发布。
+2019.5.23 - WPKuaiYun 0.1 版本正式更新发布。
 
 
   [1]: https://raw.githubusercontent.com/laobuluo/wpkuaiyun/master/wpkuaiyun-1.jpg
